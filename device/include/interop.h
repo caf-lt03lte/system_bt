@@ -112,6 +112,9 @@ typedef enum {
   // disable AAC for those headsets so that it switch to SBC
   INTEROP_DISABLE_AAC_CODEC,
 
+  // Enable AAC only for whitelist of devices
+  INTEROP_ENABLE_AAC_CODEC,
+
   // Some car kits notifies role switch supported but it rejects
   // the role switch and after some attempts of role switch
   // car kits will go to bad state.
@@ -149,6 +152,17 @@ typedef enum {
   // such scenarios, device requiring this workaorund need to use specific ssr max latency
   // values.
   INTEROP_UPDATE_HID_SSR_MAX_LAT,
+
+  // Some remotes are very strict in receiving the call active
+  // indicator and SCO connection request order for MT call.
+  // If CIEV1,1 and SCO connection request are sent back to back
+  // to SOC, it may send SCO connection request first then CIEV1,1
+  // which may lead to remotes not rendering SCO audio.
+  INTEROP_DELAY_SCO_FOR_MT_CALL,
+  // Some remotes are taking too long to respond for codec negotiation.
+  // Disable codec negotiation for such remotes and directly initiate
+  // SCO Connection.
+  INTEROP_DISABLE_CODEC_NEGOTIATION,
 
   END_OF_INTEROP_LIST
 
